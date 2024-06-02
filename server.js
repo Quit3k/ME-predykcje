@@ -14,8 +14,8 @@ db.serialize(() => {
     db.run("CREATE TABLE users (id INTEGER PRIMARY KEY AUTOINCREMENT, login TEXT, password TEXT)");
 });
 
-app.post('/api/register', (req, res) => {
-    console.log('Received /api/register request');
+app.post('/register', (req, res) => {
+    console.log('Received /register request');
     const { login, password } = req.body;
     db.run(`INSERT INTO users(login, password) VALUES(?, ?)`, [login, password], function(err) {
         if (err) {
@@ -27,8 +27,8 @@ app.post('/api/register', (req, res) => {
     });
 });
 
-app.post('/api/login', (req, res) => {
-    console.log('Received /api/login request');
+app.post('/login', (req, res) => {
+    console.log('Received /login request');
     const { login, password } = req.body;
     db.get(`SELECT * FROM users WHERE login = ? AND password = ?`, [login, password], (err, row) => {
         if (err || !row) {
@@ -38,10 +38,6 @@ app.post('/api/login', (req, res) => {
         console.log('User logged in:', { login, userId: row.id });
         res.json({ success: true, userId: row.id });
     });
-});
-
-app.get('/api/test', (req, res) => {
-    res.send('API is working');
 });
 
 app.listen(port, () => {
