@@ -14,7 +14,7 @@ db.serialize(() => {
     db.run("CREATE TABLE users (id INTEGER PRIMARY KEY AUTOINCREMENT, login TEXT, password TEXT)");
 });
 
-app.post('/register', (req, res) => {
+app.post('/api/register', (req, res) => {
     console.log('Received /register request');
     const { login, password } = req.body;
     db.run(`INSERT INTO users(login, password) VALUES(?, ?)`, [login, password], function(err) {
@@ -27,7 +27,7 @@ app.post('/register', (req, res) => {
     });
 });
 
-app.post('/login', (req, res) => {
+app.post('/api/login', (req, res) => {
     console.log('Received /login request');
     const { login, password } = req.body;
     db.get(`SELECT * FROM users WHERE login = ? AND password = ?`, [login, password], (err, row) => {
@@ -43,4 +43,3 @@ app.post('/login', (req, res) => {
 app.listen(port, () => {
     console.log(`Server running at http://localhost:${port}`);
 });
-
