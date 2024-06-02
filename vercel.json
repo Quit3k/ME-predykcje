@@ -1,0 +1,15 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "server.js",
+        "use": "@vercel/node"
+      }
+    ],
+    "routes": [
+      { "src": "/api/register", "dest": "/api/register" },
+      { "src": "/api/login", "dest": "/api/login" },
+      { "src": "/(.*)", "dest": "/" }
+    ]
+  }
+  
